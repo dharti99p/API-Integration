@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% comment %} [
+        {
+            address : {
+                geolocation : {
+                    lat:__,
+                    long:__
+                },
+                city:__,
+                street:__,
+                number:__,
+                zipcode:__
+            },
+            id:__,
+            email:__,
+            username:__,
+            password:__,
+            name:{
+                firstname:__,
+                lastname:__
+            },
+            phone:__,
+            __v: __
+        }
+    ] {% endcomment %}
+    {% for i in decodeData %}
+    <ul>
+        <li>id : {{ i.id }} </li>
+        <li>address : geolocation : lat : {{ i.address.geolocation.lat }}
+            <br> <span style="margin-left: 148px;"></span> long : {{ i.address.geolocation.long }}
+            <br> <span style="margin-left: 60px;"></span> city : {{ i.address.city }}
+            <br> <span style="margin-left: 60px;"></span> street : {{ i.address.street }}
+            <br> <span style="margin-left: 60px;"></span> number : {{ i.address.number }}
+            <br> <span style="margin-left: 60px;"></span> zipcode : {{ i.address.zipcode }}
+        </li>
+        <li>email : {{ i.email }} </li>
+        <li>username : {{ i.username }} </li>
+        <li>password : {{ i.password }} </li>
+        <li>name : firstname : {{ i.name.firstname }}
+            <br> <span style="margin-left: 50px;"></span> lastname : {{ i.name.lastname }}
+        </li>
+        <li>phone : {{ i.phone }} </li>
+        <li>__v : __v </li>
+    </ul>
+    {% endfor %}
+
+</body>
+</html>

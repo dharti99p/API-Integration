@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* global style */
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* product style */
+        .row {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content:space-between ;
+            gap: 10px;
+        }
+        .col-4 {
+            flex-basis: calc(25% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .col-4:hover{
+            transform: translateY(-5px);
+        }
+        .product-container {
+            position: relative; 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: black;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .product-info {
+            position:absolute; /* Position the content absolutely within the container */
+            top: 30px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .product-rating {
+            position: absolute;
+            top: 0px;
+            left: 200px;
+        }
+        .product-info p,
+        .product-info span{
+            margin: 0;
+        }
+        /* .product-info p{
+            position:absolute;
+            top:-160px;
+            right:60px;
+        }
+        .product-info span{
+            position:absolute;
+            top:-150px;
+            left:70px; 
+        }*/
+        .rating {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex; 
+            gap: 5px;
+            z-index: 1;
+        }
+        .heart {
+            color: red;
+        }
+        .desc {
+            text-align: center;
+        }
+        .desc h4 {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        textarea{
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product List</h1>
+    <div class="container">  
+        {% for i in decodeData %}
+        {% if forloop.counter0|divisibleby:4 %}
+        <div class="row">
+        {% endif %}
+            <div class="col-4">
+                <div class="product-container">
+                    <img class='img' src="{{ i.image }}" alt="Product Image" width="200" height="200">
+                    <div class="product-info">
+                        <p>{{ i.category }}</p>
+                        <span class="product-rating">{{ i.rating.rate }}</span>
+                    </div>
+                    <div class="rating">
+                        <i class="fas fa-heart heart"></i>
+                        <span>({{ i.rating.count }})</span>
+                    </div>
+                </div>
+                <div class="desc">
+                    <h5>Price : {{ i.price }}</h5>
+                    <h5>{{ i.title }}</h5>
+                    <h6><b>Description : </b></h6>
+                    <textarea>{{ i.description }}</textarea>
+<!--                     <ul>-->
+<!--                        {% for related_product in i.related_products %}-->
+<!--                        <li>{{ related_product.title }}</li>-->
+<!--                        {% endfor %}-->
+<!--                    </ul> -->
+                </div>
+            </div>
+        {% if forloop.last or forloop.counter0|add:1|divisibleby:4 %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
+

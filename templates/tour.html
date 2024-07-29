@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intrepid Travel - Egypt Adventure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        display: flex;
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      .tour-details {
+        margin-top: 20px;
+      }
+      .tour-details p {
+        margin: 10px 0;
+      }
+      .tour-details p strong {
+        font-weight: bold;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      .additional{
+        display: flex;
+      }
+      .inside {
+        margin-right: 10px; /* Adjust margin as needed */
+      }
+
+      .side {
+         color: gray; /* Example styling for the side text */
+      }
+
+      .tour-details h4{
+        color: white;
+        background-color: black;
+        display: inline-block;
+      }
+      .tour-img{
+        padding: 20px;
+      }
+      .custom-select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #333;
+        appearance: none; /* Remove default arrow */
+      }
+      .pagination {
+        display: inline-block;
+      }
+
+      .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+      }
+
+      .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+      }
+
+      .pagination a:hover:not(.active) {
+        background-color: #ddd;
+      }
+      .search-container {
+        position: relative;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .search-container input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        font-size: 16px;
+        outline: none;
+      }
+
+      .search-container button {
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-left: none;
+        border-radius: 0 5px 5px 0;
+        background-color: #f2f2f2;
+        font-size: 16px;
+        cursor: pointer;
+        outline: none;
+      }
+
+      .search-container button:hover {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+        <div class="search-container">
+            <form id="operator-form" method="POST" action="{% url 'operator_filter' %}">
+                {% csrf_token %}
+                <label>Choose operator : </label>
+                <select class="custom-select" id="select-option" name="operator">
+                    <option value="All" {% if selected_operator == "All" %} selected {% endif %}> All </option>
+                    <option value="9" {% if selected_operator == "contiki" %} selected {% endif %}> contiki </option>
+                    <option value="Infinite Adventures" {% if selected_operator == "Infinite Adventures" %} selected {% endif %}> Infinite Adventures </option>
+                    <option value="Timeless Tours" {% if selected_operator == "Timeless Tours" %} selected {% endif %}> Timeless Tours </option>
+                    <option value="Egypt Best Holidays" {% if selected_operator == "Egypt Best Holidays" %} selected {% endif %}> Egypt Best Holidays </option>
+                    <option value="Realistic Asia" {% if selected_operator == "Realistic Asia" %} selected {% endif %}> Realistic Asia </option>
+                    <option value="Travel Zone" {% if selected_operator == "Travel Zone" %} selected {% endif %}> Travel Zone </option>
+                    <option value="2824" {% if selected_operator == "One Life Adventures" %} selected {% endif %}> One Life Adventures </option>
+                    <option value="Say Hueque Argentina &amp; Chile Journeys" {% if selected_operator == "Say Hueque Argentina &amp; Chile Journeys" %} selected {% endif %}> Say Hueque Argentina &amp; Chile Journeys </option>
+                    <option value="187" {% if selected_operator == "MacBackpackers" %} selected {% endif %}> MacBackpackers </option>
+                </select>
+                <div class="pagination">
+                    <a name="page" href="#">&laquo;</a>
+                    <a name="page" href="{% url 'page' 1 %}" {% if current_page == 1 %} class="active"{% endif %}>1</a>
+                    <a name="page" href="{% url 'page' 2 %}" {% if current_page == 2 %} class="active"{% endif %} >2</a>
+                    <a name="page" href="{% url 'page' 3 %}" {% if current_page == 3 %} class="active"{% endif %} >3</a>
+                    <a name="page" href="{% url 'page' 4 %}" {% if current_page == 4 %} class="active"{% endif %} >4</a>
+                    <a name="page" href="{% url 'page' 5 %}" {% if current_page == 5 %} class="active"{% endif %}>5</a>
+                    <a name="page" href="{% url 'page' 6 %}" {% if current_page == 6 %} class="active"{% endif %}>6</a>
+                    <a name="page" href="{% url 'page' 7 %}" {% if current_page == 7 %} class="active"{% endif %}>7</a>
+                    <a name="page" href="{% url 'page' 8 %}" {% if current_page == 8 %} class="active"{% endif %}>8</a>
+                    <a name="page" href="{% url 'page' 9 %}" {% if current_page == 9 %} class="active"{% endif %}>9</a>
+                    <a name="page" href="{% url 'page' 10 %}" {% if current_page == 10 %} class="active"{% endif %}>10</a>
+                    <a href="#">&raquo;</a>
+                </div>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+        <div class="search-container">
+            <form method="GET" action="{% url 'days' %}">
+                <label for="tour length">Search Tour Days : </label>
+                <input type="text" placeholder="Search by tour length (days)" name="search_tour_length">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="search-container">
+            <form method="GET" action="{% url 'group_size' %}">
+                <label for="group size">Search Group Size : </label>
+                <input type="text" placeholder="Search by tour group_size" name="search_group_size">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        {% load my_custom_filters %}
+        {% for i in key %}
+        <div class="container">
+            <div class="tour-img">
+                <img src="{{i.images.0.thumbnail_url}}" alt="tour" width="400" height="400">
+            </div>
+
+            <div class="tour-details">
+                <h4>{{ i.operator.name }}</h4>
+                <a href="#"><h1>{{i.tour_name}}</h1></a>
+                <p><strong>Rating:</strong> {{i.ratings.overall}}/5</p>
+                <p><strong><i class="fas fa-map-marker-alt"></i></strong> Start With {{i.start_city.city_name}} & Ends With {{i.end_city.city_name}}</p>
+                <p><strong><i class="far fa-clock"></i></strong>{{i.tour_length_days}}days</p>
+                <p><strong><i class="fas fa-users"></i></strong> {{i.max_group_size}}passengers</p>
+                <p><strong><i class="fas fa-dollar-sign"></i></strong> {{ i.prices.price_total|divide:i.tour_length_days }} per day</p>
+                <p>From<del><i class="fas fa-dollar-sign"></i>{{ i.prices.price_total}}</del></p>
+
+                <div class="additional">
+                    <h2 class="inside">{{i.price.currency}} {{i.prices.price_total}}</h2>
+                    <p class="side">+₹0 additional upfront costs</p>
+                </div>
+                <p><strong>Additional upfront costs:</strong> ₹0</p>
+                <a href="#"><button class="btn" >VIEW TOUR</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </body>
+</html>
+
